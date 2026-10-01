@@ -555,6 +555,16 @@ duke3d_game_objs := $(call getfiltered,duke3d,*.cpp) \
     common.cpp \
     grpscan.cpp \
 
+# OASIS STAR API integration (ODuke3D). Opt-in: make OASIS_STAR_API=1 OGENGINE_DIR=<OGEngineClient>
+ifeq ($(OASIS_STAR_API),1)
+    COMPILERFLAGS += -DOASIS_STAR_API -I$(duke3d_src)/oasis
+    duke3d_game_objs += oasis/ogengine_sync.c
+    LIBS += -logengine
+    ifneq ($(OGENGINE_DIR),)
+        LIBDIRS += -L$(OGENGINE_DIR)/build
+    endif
+endif
+
 duke3d_game_rsrc_objs :=
 duke3d_editor_rsrc_objs :=
 duke3d_game_gen_objs :=

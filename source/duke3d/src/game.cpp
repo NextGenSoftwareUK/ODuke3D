@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define game_c_
 
 #include "anim.h"
+#ifdef OASIS_STAR_API
+#include "oduke3d_ogengine_integration.h"
+#endif
 #include "cheats.h"
 #include "cmdline.h"
 #include "colmatch.h"
@@ -6997,6 +7000,9 @@ int app_main(int argc, char const* const* argv)
     //    getpackets();
     //dukeCreateFrameRoutine();
 
+#ifdef OASIS_STAR_API
+    ODuke3D_STAR_Init();
+#endif
     VM_OnEvent(EVENT_INITCOMPLETE);
 
 MAIN_LOOP_RESTART:
@@ -7092,6 +7098,9 @@ MAIN_LOOP_RESTART:
 
     do //main loop
     {
+#ifdef OASIS_STAR_API
+        ODuke3D_STAR_Tick();
+#endif
         if (gameHandleEvents() && quitevent)
         {
             KB_KeyDown[sc_Escape] = 1;

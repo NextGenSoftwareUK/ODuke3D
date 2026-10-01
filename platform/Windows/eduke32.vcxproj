@@ -345,6 +345,21 @@
   <ItemGroup>
     <Manifest Include="eduke32.exe.manifest" />
   </ItemGroup>
+  <!-- OASIS STAR API integration (ODuke3D). Opt-in: msbuild /p:OasisStarApi=true /p:OgengineDir=<OGEngineClient> -->
+  <ItemGroup Condition="'$(OasisStarApi)'=='true'">
+    <ClCompile Include="..\..\source\duke3d\src\oduke3d_ogengine_integration.cpp" />
+    <ClCompile Include="..\..\source\duke3d\src\oasis\ogengine_sync.c" />
+  </ItemGroup>
+  <ItemDefinitionGroup Condition="'$(OasisStarApi)'=='true'">
+    <ClCompile>
+      <PreprocessorDefinitions>OASIS_STAR_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\source\duke3d\src\oasis;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(OgengineDir)\build\Release;$(OgengineDir)\build\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ogengine.lib;winhttp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

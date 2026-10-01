@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //-------------------------------------------------------------------------
 
 #include "demo.h"
+#ifdef OASIS_STAR_API
+#include "oduke3d_ogengine_integration.h"
+#endif
 #include "duke3d.h"
 #include "enet.h"
 #include "input.h"
@@ -51,6 +54,9 @@ int const inv_to_icon[GET_MAX] = { ICON_STEROIDS, ICON_NONE,  ICON_SCUBA, ICON_H
 void P_AddKills(DukePlayer_t * const pPlayer, uint16_t kills)
 {
     pPlayer->actors_killed += kills;
+#ifdef OASIS_STAR_API
+    ODuke3D_STAR_OnKills(kills);
+#endif
 }
 
 void P_UpdateScreenPal(DukePlayer_t * const pPlayer)
