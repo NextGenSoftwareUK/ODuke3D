@@ -345,7 +345,8 @@
   <ItemGroup>
     <Manifest Include="eduke32.exe.manifest" />
   </ItemGroup>
-  <!-- OASIS STAR API integration (ODuke3D). Opt-in: msbuild /p:OasisStarApi=true /p:OgengineDir=<OGEngineClient> -->
+  <!-- OASIS STAR API integration (ODuke3D). Opt-in: msbuild /p:OasisStarApi=true /p:OgengineLibDir=<folder with ogengine.lib> -->
+  <!-- (OgengineDir is still accepted: its build\Release / build\Debug are searched after OgengineLibDir.) -->
   <ItemGroup Condition="'$(OasisStarApi)'=='true'">
     <ClCompile Include="..\..\source\duke3d\src\oduke3d_ogengine_integration.cpp" />
     <ClCompile Include="..\..\source\duke3d\src\oasis\ogengine_sync.c" />
@@ -356,7 +357,7 @@
       <AdditionalIncludeDirectories>..\..\source\duke3d\src\oasis;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(OgengineDir)\build\Release;$(OgengineDir)\build\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OgengineLibDir);$(OgengineDir)\build\Release;$(OgengineDir)\build\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>ogengine.lib;winhttp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

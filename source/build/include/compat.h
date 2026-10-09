@@ -107,8 +107,8 @@
 # define CXXSTD 1
 #endif
 
-#if CXXSTD >= 2011 || EDUKE32_MSVC_PREREQ(1800)
-// MSVC does not properly identify C++11 support
+#if defined __cplusplus && (CXXSTD >= 2011 || EDUKE32_MSVC_PREREQ(1800))
+// MSVC does not properly identify C++11 support (C translation units must not see the C++ paths below)
 # define HAVE_CXX11_HEADERS
 #endif
 
